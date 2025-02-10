@@ -59,51 +59,56 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen p-8 bg-white">
-      <h1 className="text-3xl font-bold text-center mb-8">
+    <div className="min-h-screen p-4 md:p-8">
+      <h1 className="text-4xl font-bold text-center mb-12">
         Get your own WSJ Hedcut Shot
       </h1>
 
       <div className="max-w-2xl mx-auto">
         {step === 1 && (
           <div className="text-center">
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageSelect}
-              className="hidden"
-              id="imageInput"
-            />
-            <label
-              htmlFor="imageInput"
-              className="inline-block bg-blue-500 text-white px-6 py-2 rounded-md cursor-pointer hover:bg-blue-600 transition-colors"
-            >
-              Find...
-            </label>
+            <div className="inline-flex items-center gap-2">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageSelect}
+                className="hidden"
+                id="imageInput"
+              />
+              <label
+                htmlFor="imageInput"
+                className="file-input-label"
+              >
+                Choose file
+              </label>
+              <span className="text-gray-500">
+                {selectedImage ? selectedImage.name : 'No file chosen'}
+              </span>
+              <span className="find-button">
+                Find...
+              </span>
+            </div>
           </div>
         )}
 
         {step === 2 && previewUrl && (
-          <div className="text-center">
-            <div className="relative w-full max-w-md mx-auto aspect-square mb-4">
-              <img
-                src={previewUrl}
-                alt="Preview"
-                className="object-cover rounded-lg shadow-lg"
-                style={{ maxHeight: '400px', width: 'auto', margin: '0 auto' }}
-              />
-            </div>
-            <div className="space-y-3 max-w-md mx-auto">
+          <div className="image-container">
+            <img
+              src={previewUrl}
+              alt="Preview"
+              className="preview-image"
+            />
+            <div className="button-container">
               <button
                 onClick={handleConvert}
-                className="w-full bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors disabled:bg-blue-300"
+                className="action-button primary-button"
                 disabled={loading}
               >
                 {loading ? 'Converting...' : 'Yes, that\'s it. Get me my Hedcut'}
               </button>
               <button
                 onClick={() => setStep(1)}
-                className="w-full bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600 transition-colors"
+                className="action-button secondary-button"
               >
                 Nah. I have a different pic in mind.
               </button>
@@ -112,26 +117,23 @@ export default function Home() {
         )}
 
         {step === 3 && convertedImage && (
-          <div className="text-center">
+          <div className="image-container">
             <h2 className="text-xl mb-4">Here is your WSJ Hedcut Shot. Enjoy.</h2>
-            <div className="relative w-full max-w-md mx-auto aspect-square mb-4">
-              <img
-                src={convertedImage}
-                alt="Converted"
-                className="object-cover rounded-lg shadow-lg"
-                style={{ maxHeight: '400px', width: 'auto', margin: '0 auto' }}
-              />
-            </div>
-            <div className="space-y-3 max-w-md mx-auto">
+            <img
+              src={convertedImage}
+              alt="Converted"
+              className="preview-image"
+            />
+            <div className="button-container">
               <button
                 onClick={handleDownload}
-                className="w-full bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors"
+                className="action-button primary-button"
               >
                 DOWNLOAD
               </button>
               <button
                 onClick={() => setStep(1)}
-                className="w-full bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600 transition-colors"
+                className="action-button secondary-button"
               >
                 Take me home.
               </button>
