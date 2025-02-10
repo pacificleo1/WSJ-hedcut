@@ -4,7 +4,20 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 export default function Home() {
-  // ... other states ...
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [convertedImage, setConvertedImage] = useState<string | null>(null);
+  const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setSelectedImage(file);
+      setPreviewUrl(URL.createObjectURL(file));
+      setStep(2);
+    }
+  };
 
   const handleConvert = async () => {
     if (!selectedImage) return;
@@ -14,7 +27,6 @@ export default function Home() {
     formData.append('file', selectedImage);
 
     try {
-      // Use environment variable for API URL
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
       const response = await fetch(`${apiUrl}/convert`, {
         method: 'POST',
@@ -32,6 +44,17 @@ export default function Home() {
       console.error('Error converting image:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDownload = () => {
+    if (convertedImage) {
+      const link = document.createElement('a');
+      link.href = convertedImage;
+      link.download = 'hedcut.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   };
 
