@@ -92,7 +92,7 @@ export default function Home() {
                 className="bg-blue-500 text-white px-4 py-2 rounded w-full"
                 disabled={loading}
               >
-                {loading ? 'Converting...' : 'Yes, that's it. Get me my Hedcut'}
+                {loading ? 'Converting...' : 'Yes, that\'s it. Get me my Hedcut'}
               </button>
               <button
                 onClick={() => setStep(1)}
