@@ -12,7 +12,7 @@ app = FastAPI()
 # Configure CORS with your Vercel frontend URL
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://your-vercel-app.vercel.app"],  # Update this with your Vercel URL
+    allow_origins=["https://wsj-hedcut-t84w.vercel.app/"],  # Update this with your Vercel URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

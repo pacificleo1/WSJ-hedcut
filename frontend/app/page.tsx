@@ -38,10 +38,13 @@ export default function Home() {
         setConvertedImage(URL.createObjectURL(blob));
         setStep(3);
       } else {
-        console.error('Error converting image:', await response.text());
+        const errorText = await response.text();
+        console.error('Error converting image:', errorText);
+        alert('Error converting image: ' + errorText);
       }
     } catch (error) {
       console.error('Error converting image:', error);
+      alert('Error converting image: ' + error);
     } finally {
       setLoading(false);
     }
